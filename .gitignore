@@ -4,3 +4,4 @@
 
 application-prod.yml
 
+/backend/src/main/resources/application-prod.yml
