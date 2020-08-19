@@ -1,3 +1,6 @@
 /backend/backend.iml
-/.idea/
-/frontend/.idea/
+
+.idea
+
+application-prod.yml
+
