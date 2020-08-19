@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jansora.analysis.dao.TemplateDao">
+    <resultMap id="Template" type="com.jansora.analysis.entity.Template">
+        <result property="id" column="id"/>
+        <result property="createAt" column="create_at"/>
+        <result property="updateAt" column="update_at"/>
+        <result property="ownerId" column="owner_id"/>
+        <result property="template" column="template"/>
+    </resultMap>
+    <select id="count" resultType="int">
+        SELECT count(1) FROM TEMPLATE WHERE 1 = 1
+        <choose><when test="id != null"> AND id = #{id}</when></choose>
+        <choose><when test="template != null and template != ''"> AND template = #{template}</when></choose>
+    </select>
+    <select id="find"  resultMap="Template">
+        SELECT * FROM TEMPLATE WHERE 1 = 1
+        <choose><when test="id != null"> AND id = #{id} </when></choose>
+        <choose><when test="template != null and template != ''"> AND template = #{template}</when></choose>
+
+        ORDER BY
+        <choose><when test="orderBy != null and orderBy != '' ">${orderBy} </when><otherwise> update_at </otherwise></choose>
+        <choose><when test="sort != null ">${sort </when></choose>
+        <choose><when test="limit != null and offset != null"> LIMIT #{limit} OFFSET #{offset} </when></choose>
+    </select>
+    <select id="findOne"  resultMap="Template">
+        SELECT * FROM TEMPLATE WHERE 1 = 1
+        <choose><when test="id != null"> AND id = #{id} </when></choose>
+        <choose><when test="template != null and template != ''"> AND template = #{template}</when></choose>
+
+        ORDER BY
+        <choose><when test="orderBy != null and orderBy != '' ">${orderBy} </when><otherwise> update_at </otherwise></choose>
+        <choose><when test="sort != null ">${sort} </when></choose>
+
+        LIMIT 1;
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO BLOG_TOPIC (
+            create_at, update_at,
+            template
+        )
+        VALUES ( NOW(), NOW(), #{template} );
+    </insert>
+
+    <update id="update" useGeneratedKeys="true" keyProperty="id">
+        UPDATE TEMPLATE SET
+            update_at = NOW()
+        <choose><when test="template != null and template != ''"> AND template = #{template}</when></choose>
+        WHERE id=#{id} ;
+
+    </update>
+
+    <delete id="delete">
+        DELETE FROM TEMPLATE WHERE id=#{id} ;
+    </delete>
+</mapper>

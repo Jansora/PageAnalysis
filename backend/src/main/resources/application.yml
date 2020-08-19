@@ -1,0 +1,21 @@
+server:
+  servlet:
+    context-path: /v1
+
+spring:
+  profiles:
+    active: dev
+
+  datasource:
+    schema: classpath:sql/schema.sql
+    data: classpath:sql/init.sql
+    initialization-mode: always
+
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
+  mapper-locations: classpath:mapper/**/*.xml
+  type-handlers-package: com.jansora.handler
+
