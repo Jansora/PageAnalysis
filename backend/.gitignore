@@ -32,3 +32,4 @@ build/
 
 application.iml
 
+/src/main/resources/application-prod.yml
